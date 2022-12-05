@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Carousel from "../components/home/Carousel";
+import { gamesActions } from "../state/games";
 
 const Home = () => {
-  const [games, setGames] = useState([]);
+  const dispatch = useDispatch();
+  const games = useSelector((state) => state.games.games);
   useEffect(() => {
     const getGames = async () => {
       const response = await fetch(`https://rawg.io/api/games?&token&key=${import.meta.env.VITE_RAWG_API_KEY}`);
       const data = await response.json();
-      setGames(data.results);
+      dispatch(gamesActions.setGames(data.results));
     };
     getGames();
   }, []);
