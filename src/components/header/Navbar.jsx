@@ -67,19 +67,22 @@ const Navbar = () => {
             >
               <a
                 href="#"
-                className="block px-4 py-2 text-center text-lg text-gray-400 hover:bg-gray-700 hover:text-white"
+                className="block px-4 py-2 text-center text-lg text-gray-400 transition hover:bg-gray-700
+                hover:text-white"
               >
                 HOME
               </a>
               <a
                 href="#"
-                className="block px-4 py-2 text-center text-lg text-gray-400 hover:bg-gray-700 hover:text-white"
+                className="block px-4 py-2 text-center text-lg text-gray-400 transition hover:bg-gray-700
+                hover:text-white"
               >
                 PROFILE
               </a>
               <a
                 href="#"
-                className="block px-4 py-2 text-center text-lg text-gray-400 hover:bg-gray-700 hover:text-white"
+                className="block px-4 py-2 text-center text-lg text-gray-400 transition hover:bg-gray-700
+                hover:text-white"
               >
                 LOGOUT
               </a>
@@ -90,17 +93,17 @@ const Navbar = () => {
           <div className="ml-10 flex items-baseline">
             <a
               href="/"
-              className=" rounded-md px-3 py-2 text-base font-semibold text-gray-300 hover:bg-gray-700 hover:text-white focus:bg-gray-700 focus:text-white focus:outline-none"
+              className=" rounded-md px-3 py-2 text-base font-semibold text-gray-300 transition hover:bg-gray-700 hover:text-white focus:bg-gray-700 focus:text-white focus:outline-none"
             >
               HOME
             </a>
             <a
               href="/profile"
-              className="ml-4 rounded-md px-3 py-2 text-base font-semibold text-gray-300 hover:bg-gray-700 hover:text-white focus:bg-gray-700 focus:text-white focus:outline-none"
+              className="ml-4 rounded-md px-3 py-2 text-base font-semibold text-gray-300 transition hover:bg-gray-700 hover:text-white focus:bg-gray-700 focus:text-white focus:outline-none"
             >
               PROFILE
             </a>
-            <button className="ml-4 rounded-md px-3 py-2 text-base font-semibold text-gray-300 hover:bg-gray-700 hover:text-white ">
+            <button className="ml-4 rounded-md px-3 py-2 text-base font-semibold text-gray-300 transition hover:bg-gray-700 hover:text-white ">
               LOGOUT
             </button>
           </div>

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialGamesState = {
   games: [],
+  genres: [],
 };
 
 const gamesSlice = createSlice({
@@ -10,6 +11,9 @@ const gamesSlice = createSlice({
   reducers: {
     setGames(state, action) {
       state.games = action.payload;
+    },
+    setGenres(state, action) {
+      state.genres = action.payload;
     },
   },
 });
