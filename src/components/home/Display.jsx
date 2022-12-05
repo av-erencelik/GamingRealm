@@ -1,12 +1,14 @@
 import React from "react";
 import Categories from "./Categories";
+import Filter from "./Filter";
 import Games from "./Games";
 
 const Display = () => {
   return (
-    <section className="m-auto mt-0 w-[100%] rounded-none sm:mt-10 sm:rounded-md xl:w-[70%]">
+    <section className="m-0 mt-0 flex w-[100%] items-start rounded-none sm:m-auto sm:mt-10 sm:flex sm:rounded-md xl:w-[70%]">
       <Categories></Categories>
-      <Games></Games>
+      <Filter></Filter>
+      {/* <Games></Games> */}
     </section>
   );
 };

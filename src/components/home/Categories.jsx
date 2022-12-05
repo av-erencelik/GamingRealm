@@ -10,8 +10,8 @@ const Categories = () => {
     setCategoriesOpened((prev) => !prev);
   };
   return (
-    <div className=" flex  flex-col flex-wrap items-center justify-center gap-3 rounded-b-none bg-gray-800 p-2 transition-all sm:rounded-b-md sm:p-5">
-      <div className="flex cursor-pointer flex-row items-center" onClick={handleClick}>
+    <div className=" inline-block w-[50%] gap-3 rounded-b-none bg-gray-800 p-2 transition-all sm:flex sm:w-[100%] sm:flex-col sm:flex-wrap sm:items-center sm:justify-center sm:rounded-l-md sm:p-5">
+      <div className="flex cursor-pointer flex-row items-center justify-center " onClick={handleClick}>
         <h2 className="text-sm font-bold text-gray-300 sm:text-base">Categories</h2>
         <motion.div animate={{ rotate: categoriesOpened ? 0 : 180 }}>
           <MdKeyboardArrowDown className="h-[25px] w-[25px] font-bold text-gray-200"></MdKeyboardArrowDown>
@@ -20,7 +20,7 @@ const Categories = () => {
       <AnimatePresence>
         {categoriesOpened && (
           <motion.div
-            className="sm:max-h-none flex max-h-[100px] w-[100%] flex-col flex-nowrap gap-1 overflow-scroll sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-3 sm:overflow-hidden"
+            className="sm:max-h-none flex max-h-[100px] w-[100%] flex-col flex-nowrap gap-1 overflow-scroll sm:max-h-max sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-3 sm:overflow-hidden"
             initial={{ y: -10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -10, opacity: 0 }}
