@@ -1,10 +1,14 @@
 import { useState } from "react";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/header/Navbar";
+import Home from "./pages/Home";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  return <Navbar></Navbar>;
+  return (
+    <>
+      <Navbar></Navbar>
+      <Home></Home>
+    </>
+  );
 }
 
 export default App;
