@@ -5,7 +5,7 @@ const Home = () => {
   const [games, setGames] = useState([]);
   useEffect(() => {
     const getGames = async () => {
-      const response = await fetch("https://rawg.io/api/games?&token&key=de0932ab0bf04fb8a288dc63c5891339");
+      const response = await fetch("https://rawg.io/api/games?&token&key=");
       const data = await response.json();
       setGames(data.results);
     };
