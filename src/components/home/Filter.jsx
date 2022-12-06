@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 const Filter = () => {
   const [isFilterOpened, setIsFilterOpened] = useState(false);
   return (
-    <aside className="mt-0 w-[50%] rounded-none bg-gray-800 p-2 sm:w-[250px] sm:rounded-b-md sm:rounded-bl-none sm:p-5">
+    <aside className=" z-30 mt-0 w-[50%] rounded-none bg-gray-800 p-2 sm:w-[250px] sm:rounded-b-md sm:rounded-bl-none sm:p-5">
       <div
         className="flex cursor-pointer flex-row items-center justify-center"
         onClick={() => setIsFilterOpened((prev) => !prev)}
@@ -24,7 +24,7 @@ const Filter = () => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -10, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="mt-4"
+            className=" z-30 mt-4"
           >
             <Platform></Platform>
             <Metacritic></Metacritic>

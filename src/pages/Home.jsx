@@ -22,7 +22,7 @@ const Home = () => {
     getGenres();
   }, []);
   return (
-    <main className="min-h-[100vh] overflow-hidden bg-gray-200 p-0 sm:p-10">
+    <main className="min-h-[100vh] bg-gray-200 p-0 sm:p-10">
       <Carousel games={games}></Carousel>
       <Display></Display>
     </main>
