@@ -13,7 +13,7 @@ const Games = () => {
             key={games.indexOf(game)}
           >
             <div className="relative flex  h-[300px] w-[100%] flex-col gap-0 overflow-hidden rounded-sm border-[1px] border-gray-400 bg-gradient-to-b from-zinc-100 via-neutral-100 to-stone-100 shadow-xl sm:h-[370px] sm:w-[225px]">
-              <div className="imgdiv h-[100%] w-[100%] hover:opacity-75">
+              <div className="imgdiv h-[100%] w-[100%] transition-all hover:opacity-75">
                 <LazyLoadImage
                   src={game.background_image}
                   alt={game.name}
