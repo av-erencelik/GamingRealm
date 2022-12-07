@@ -34,7 +34,7 @@ const Categories = () => {
                 <button
                   className="rounded-md p-2 font-normal text-gray-200 transition hover:bg-gray-700 hover:text-white sm:font-semibold"
                   key={genre.id}
-                  value={genre.name}
+                  value={genre.slug}
                 >
                   {genre.name}
                 </button>

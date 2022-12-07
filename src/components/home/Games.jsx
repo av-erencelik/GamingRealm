@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
-
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 const Games = () => {
   const games = useSelector((state) => state.games.games);
   return (
@@ -12,11 +13,15 @@ const Games = () => {
             key={games.indexOf(game)}
           >
             <div className="relative flex  h-[300px] w-[100%] flex-col gap-0 overflow-hidden rounded-sm border-[1px] border-gray-400 bg-gradient-to-b from-zinc-100 via-neutral-100 to-stone-100 shadow-xl sm:h-[370px] sm:w-[225px]">
-              <img
-                src={game.background_image}
-                alt={game.name}
-                className=" h-[100%] w-[100%] cursor-pointer object-cover shadow-md transition-all hover:opacity-75"
-              />
+              <div className="imgdiv h-[100%] w-[100%] hover:opacity-75">
+                <LazyLoadImage
+                  src={game.background_image}
+                  alt={game.name}
+                  className="h-[100%] w-[100%] cursor-pointer object-cover shadow-md transition-all "
+                  effect="blur"
+                />
+              </div>
+
               <div className="flex w-[130px] flex-col gap-2 overflow-hidden pl-3 hover:w-auto sm:w-[175px]">
                 <h3 className=" text-md  block min-w-[2px] truncate pt-1 font-normal text-gray-800" title={game.name}>
                   {game.name}

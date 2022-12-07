@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialGamesState = {
   games: [],
   genres: [],
+  carouselGames: [],
 };
 
 const gamesSlice = createSlice({
@@ -14,6 +15,12 @@ const gamesSlice = createSlice({
     },
     setGenres(state, action) {
       state.genres = action.payload;
+    },
+    setCarouselGames(state, action) {
+      state.carouselGames = action.payload;
+    },
+    updateGames(state, action) {
+      state.games = state.games.concat(action.payload);
     },
   },
 });

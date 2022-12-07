@@ -46,3 +46,7 @@
 .swiper-button-prev {
   --swiper-theme-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
+.imgdiv > span {
+  height: 100%;
+  width: 100%;
+}
