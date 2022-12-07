@@ -46,7 +46,13 @@ const Home = () => {
       dispatch(
         gamesActions.updateGames(
           data.results.map((game) => {
-            return { id: game.id, background_image: game.background_image, name: game.name, genres: game.genres };
+            return {
+              id: game.id,
+              background_image: game.background_image,
+              name: game.name,
+              genres: game.genres,
+              metacritic: game.metacritic,
+            };
           })
         )
       );
