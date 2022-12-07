@@ -3,12 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import Carousel from "../components/home/Carousel";
 import Display from "../components/home/Display";
 import { gamesActions } from "../state/games";
+import { useIsMount } from "../utilities/customHooks";
 
 const Home = () => {
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
-  const games = useSelector((state) => state.games.games);
+  const isMount = useIsMount();
+  const genre = useSelector((state) => state.filters.genre);
+  const platform = useSelector((state) => state.filters.platform);
+  const metacritic = useSelector((state) => state.filters.metacritic);
   const carouselGames = useSelector((state) => state.games.carouselGames);
   useEffect(() => {
     const getCarouselGames = async () => {
@@ -39,7 +43,7 @@ const Home = () => {
   useEffect(() => {
     const getGames = async () => {
       const response = await fetch(
-        `https://rawg.io/api/games?&page=${page}&page_size=40&token&key=${import.meta.env.VITE_RAWG_API_KEY}`
+        `https://rawg.io/api/games?&page=${page}${genre}&page_size=40&token&key=${import.meta.env.VITE_RAWG_API_KEY}`
       );
       const data = await response.json();
       setIsLoading(false);
@@ -59,6 +63,33 @@ const Home = () => {
     };
     getGames();
   }, [page]);
+  useEffect(() => {
+    if (isMount) {
+      return;
+    }
+    const getGames = async () => {
+      setPage(1);
+      const response = await fetch(
+        `https://rawg.io/api/games?&page=1${genre}&page_size=40&token&key=${import.meta.env.VITE_RAWG_API_KEY}`
+      );
+      const data = await response.json();
+      setIsLoading(false);
+      dispatch(
+        gamesActions.setGames(
+          data.results.map((game) => {
+            return {
+              id: game.id,
+              background_image: game.background_image,
+              name: game.name,
+              genres: game.genres,
+              metacritic: game.metacritic,
+            };
+          })
+        )
+      );
+    };
+    getGames();
+  }, [genre, platform, metacritic]);
   useEffect(() => {
     const onScroll = function () {
       if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {

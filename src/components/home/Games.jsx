@@ -9,11 +9,13 @@ const Games = () => {
       {games.map((game, index) => {
         return (
           <div
-            className={`inline-block w-[50%] py-2 sm:block sm:w-auto ${index % 2 == 0 ? "px-2" : "pr-2"} `}
+            className={`inline-block w-[50%] py-2 sm:block sm:w-auto sm:px-0 sm:pr-0${
+              index % 2 == 0 ? "px-2" : "pr-2"
+            } `}
             key={games.indexOf(game)}
           >
-            <div className="relative flex  h-[300px] w-[100%] flex-col gap-0 overflow-hidden rounded-sm border-[1px] border-gray-400 bg-gradient-to-b from-zinc-100 via-neutral-100 to-stone-100 shadow-xl sm:h-[370px] sm:w-[225px]">
-              <div className="imgdiv h-[100%] w-[100%] transition-all hover:opacity-75">
+            <div className="relative flex  h-[300px]  w-[100%] flex-col gap-0 overflow-hidden rounded-sm border-[1px] border-gray-400 bg-gradient-to-b from-zinc-100 via-neutral-100 to-stone-100 shadow-xl sm:h-[370px] sm:w-[225px]">
+              <div className="imgdiv h-[100%] max-h-[240px] w-[100%] transition-all hover:opacity-75 sm:max-h-[310px]">
                 <LazyLoadImage
                   src={game.background_image}
                   alt={game.name}
@@ -43,7 +45,7 @@ const Games = () => {
               </div>
               {game.metacritic && (
                 <p
-                  className=" absolute right-3 bottom-3 cursor-default rounded-sm bg-yellow-500 p-0.5 text-sm font-medium text-gray-100"
+                  className=" absolute right-3 bottom-4 cursor-default rounded-sm bg-yellow-500 p-0.5 text-sm font-medium text-gray-100"
                   title="metacritic"
                 >
                   {game.metacritic}

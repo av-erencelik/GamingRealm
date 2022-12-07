@@ -25,6 +25,9 @@ const filtersSlice = createSlice({
     setMetacriticMax(state, action) {
       state.metacritic.ax = action.payload;
     },
+    setGenreEmpty(state) {
+      state.genre = "";
+    },
   },
 });
 
