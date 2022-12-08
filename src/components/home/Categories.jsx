@@ -7,7 +7,6 @@ import { filtersActions } from "../../state/filters";
 const Categories = () => {
   const [activeButton, setActiveButton] = useState(null);
   const genres = useSelector((state) => state.games.genres);
-  const genre = useSelector((state) => state.filters.genre);
   const dispatch = useDispatch();
   const [categoriesOpened, setCategoriesOpened] = useState(false);
   const handleClick = () => {
