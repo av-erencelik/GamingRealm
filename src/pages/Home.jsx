@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Footer from "../components/footer";
 import Carousel from "../components/home/Carousel";
 import Display from "../components/home/Display";
 import { gamesActions } from "../state/games";
@@ -106,10 +107,13 @@ const Home = () => {
   }, []);
 
   return (
-    <main className="min-h-[100vh] bg-gray-200 p-0 sm:p-10">
-      <Carousel games={carouselGames}></Carousel>
-      <Display isLoading={isLoading}></Display>
-    </main>
+    <>
+      <main className="min-h-[100vh] bg-gray-200 p-0 sm:p-10">
+        <Carousel games={carouselGames}></Carousel>
+        <Display isLoading={isLoading}></Display>
+      </main>
+      <Footer></Footer>
+    </>
   );
 };
 
