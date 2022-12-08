@@ -43,9 +43,9 @@ const Home = () => {
   useEffect(() => {
     const getGames = async () => {
       const response = await fetch(
-        `https://rawg.io/api/games?&page=${page}${genre}${platform}&page_size=40&token&key=${
-          import.meta.env.VITE_RAWG_API_KEY
-        }`
+        `https://rawg.io/api/games?&page=${page}${genre}${platform}&metacritic=${metacritic.min},${
+          metacritic.max
+        }&page_size=40&token&key=${import.meta.env.VITE_RAWG_API_KEY}`
       );
       const data = await response.json();
       setIsLoading(false);
@@ -72,9 +72,9 @@ const Home = () => {
     const getGames = async () => {
       setPage(1);
       const response = await fetch(
-        `https://rawg.io/api/games?&page=1${genre}${platform}&page_size=40&token&key=${
-          import.meta.env.VITE_RAWG_API_KEY
-        }`
+        `https://rawg.io/api/games?&page=1${genre}${platform}&metacritic=${metacritic.min},${
+          metacritic.max
+        }&page_size=40&token&key=${import.meta.env.VITE_RAWG_API_KEY}`
       );
       const data = await response.json();
       setIsLoading(false);

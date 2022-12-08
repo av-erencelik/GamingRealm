@@ -4,6 +4,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useDispatch } from "react-redux";
+import { filtersActions } from "../../state/filters";
 
 const schema = yup
   .object({
@@ -20,11 +22,13 @@ const schema = yup
       .integer()
       .required()
       .min(0, "The minimum value must be at least 0")
+      .min(yup.ref("min"))
       .max(100, "The maximum value must be at most 100"),
   })
   .required();
 const Metacritic = () => {
   const [isMetacriticOpened, setIsMetacriticOpened] = useState(false);
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -32,7 +36,10 @@ const Metacritic = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    dispatch(filtersActions.setMetacriticMin(data.min));
+    dispatch(filtersActions.setMetacriticMax(data.max));
+  };
   return (
     <div className="flex w-[100%] cursor-pointer flex-col items-center justify-center rounded-md transition ">
       <div

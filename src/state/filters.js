@@ -23,7 +23,7 @@ const filtersSlice = createSlice({
       state.metacritic.min = action.payload;
     },
     setMetacriticMax(state, action) {
-      state.metacritic.ax = action.payload;
+      state.metacritic.max = action.payload;
     },
     setGenreEmpty(state) {
       state.genre = "";
