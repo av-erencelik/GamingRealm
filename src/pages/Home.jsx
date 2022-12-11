@@ -112,7 +112,6 @@ const Home = () => {
         <Carousel games={carouselGames}></Carousel>
         <Display isLoading={isLoading}></Display>
       </main>
-      <Footer></Footer>
     </>
   );
 };

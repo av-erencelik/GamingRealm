@@ -1,15 +1,14 @@
 import React from "react";
-// Import Swiper React components
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-// Import Swiper styles
+
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
 
-// import required modules
 import { Pagination, Navigation, Autoplay } from "swiper";
 
 function Carousel({ games }) {
