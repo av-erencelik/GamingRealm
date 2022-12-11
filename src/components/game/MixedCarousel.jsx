@@ -4,8 +4,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
+import "react-lazy-load-image-component/src/effects/blur.css";
 import { Pagination, Navigation } from "swiper";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const MixedCarousel = ({ images, trailer }) => {
   return (
@@ -29,7 +30,7 @@ const MixedCarousel = ({ images, trailer }) => {
       >
         {images.map((image, index) => (
           <SwiperSlide key={index}>
-            <img src={image} className="h-[100%] w-[100%]"></img>
+            <LazyLoadImage src={image} className="h-[100%] w-[100%]" effect="blur"></LazyLoadImage>
           </SwiperSlide>
         ))}
         {trailer.map((movie, index) => (

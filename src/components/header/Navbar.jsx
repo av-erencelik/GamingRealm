@@ -24,7 +24,7 @@ const Navbar = () => {
 
   return (
     <header className="z-40 flex justify-center bg-gray-800">
-      <nav className="flex w-[100%] flex-col items-center gap-2 bg-gray-800 p-2 sm:justify-between sm:gap-4 sm:p-6 md:flex-row lg:w-[65%]">
+      <nav className="flex w-[100%] flex-col items-center gap-1 bg-gray-800 p-1 sm:justify-between sm:gap-4 sm:p-6 md:flex-row lg:w-[65%]">
         <div className="items-center]  flex">
           <GiGamepad className="h-10 w-10 text-gray-400"></GiGamepad>
         </div>

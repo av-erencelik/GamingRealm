@@ -8,6 +8,7 @@ const initialGameDetailsState = {
   background_image: "",
   background_image_additional: "",
   publisher_name: "",
+  playtime: "",
   game_genres: [],
   platforms: [],
   screenshots: [],
@@ -20,6 +21,9 @@ const gameDetailsSlice = createSlice({
   reducers: {
     setName(state, action) {
       state.name = action.payload;
+    },
+    setPlaytime(state, action) {
+      state.playtime = action.payload;
     },
     setDescription(state, action) {
       state.description = action.payload;

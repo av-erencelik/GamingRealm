@@ -2,16 +2,16 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import GameDetails from "../components/game/GameDetails";
 import { gameDetailsActions } from "../state/gameDetails";
-import ThreeDotsWave from "../utilities/ThreeDotsLoading";
 
 const Game = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     const getGameDetails = async () => {
-      const response = await fetch("https://rawg.io/api/games/3498?&page=1&token&key=de0932ab0bf04fb8a288dc63c5891339");
+      const response = await fetch("https://rawg.io/api/games/3118?&page=1&token&key=de0932ab0bf04fb8a288dc63c5891339");
       const data = await response.json();
       dispatch(gameDetailsActions.setName(data.name));
       dispatch(gameDetailsActions.setDescription(data.description));
+      dispatch(gameDetailsActions.setPlaytime(data.playtime));
       dispatch(gameDetailsActions.setMetacritic(data.metacritic));
       dispatch(gameDetailsActions.setReleaseDate(data.released));
       dispatch(gameDetailsActions.setBackgroundImage(data.background_image));
@@ -28,14 +28,14 @@ const Game = () => {
     };
     const getScreenshots = async () => {
       const response = await fetch(
-        "https://rawg.io/api/games/3498/screenshots?&page=1&token&key=de0932ab0bf04fb8a288dc63c5891339"
+        "https://rawg.io/api/games/3118/screenshots?&page=1&token&key=de0932ab0bf04fb8a288dc63c5891339"
       );
       const data = await response.json();
       dispatch(gameDetailsActions.setScreenshots(data.results.map((screenshot) => screenshot.image)));
     };
     const getTrailers = async () => {
       const response = await fetch(
-        "https://rawg.io/api/games/3498/movies?&page=1&token&key=de0932ab0bf04fb8a288dc63c5891339"
+        "https://rawg.io/api/games/3118/movies?&page=1&token&key=de0932ab0bf04fb8a288dc63c5891339"
       );
       const data = await response.json();
       dispatch(

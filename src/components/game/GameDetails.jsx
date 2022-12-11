@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import MixedCarousel from "./MixedCarousel";
 import { MdKeyboardArrowDown } from "react-icons/md";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 const GameDetails = () => {
   const [descriptionOpen, setDescriptionOpen] = useState(false);
   const backgroundAdditional = useSelector((state) => state.gameDetails.background_image_additional);
@@ -17,6 +19,7 @@ const GameDetails = () => {
   const description = useSelector((state) => state.gameDetails.description);
   const screenshots = useSelector((state) => state.gameDetails.screenshots);
   const trailers = useSelector((state) => state.gameDetails.trailers);
+  const playtime = useSelector((state) => state.gameDetails.playtime);
   useEffect(() => {
     if (document.getElementById("description")) {
       document.getElementById("description").innerHTML = description;
@@ -25,14 +28,19 @@ const GameDetails = () => {
   return (
     <div className="relative">
       <div className=" -z-10 h-[200px] max-h-[400px] w-full overflow-hidden md:h-[400px]">
-        <img
+        <LazyLoadImage
           src={backgroundAdditional}
           className=" box-border block h-full max-h-[100%] w-full max-w-[100%] scale-105 object-cover blur-md"
-        ></img>
+          effect="blur"
+        ></LazyLoadImage>
       </div>
       <div className=" m-auto mt-[-100px] flex w-[90%] gap-5 md:mt-[-225px] xl:w-[70%]">
         <div className=" h-[150px] w-[100px] shrink-0 md:h-[350px] md:w-[250px]">
-          <img src={backgroundImage} className="relative z-50  h-full w-full object-cover"></img>
+          <LazyLoadImage
+            src={backgroundImage}
+            className="relative z-50  h-full w-full object-cover"
+            effect="blur"
+          ></LazyLoadImage>
         </div>
         <div className="flex w-[100%] flex-col gap-2 md:mt-[75px] 2xl:mt-[50px]">
           <h3 className="relative font-bold tracking-wider text-gray-300 md:text-3xl 2xl:text-6xl">{name}</h3>
@@ -78,9 +86,12 @@ const GameDetails = () => {
               }
             })}
           </div>
+          <div className="mb-5">
+            <span className="text-xs font-semibold text-gray-800 md:text-sm">Playtime: {playtime}</span>
+          </div>
         </div>
       </div>
-      <div className="flex" onClick={() => setDescriptionOpen((prev) => !prev)}>
+      <div className="flex cursor-pointer" onClick={() => setDescriptionOpen((prev) => !prev)}>
         <h2 className="ml-auto text-xs font-semibold text-gray-800 md:text-sm">Description</h2>
         <motion.div animate={{ rotate: descriptionOpen ? 0 : 180 }} className="mr-auto flex items-center">
           <MdKeyboardArrowDown className="flex h-[15px] w-[15px] items-center font-bold text-gray-800 md:h-[20px] md:w-[20px]"></MdKeyboardArrowDown>
@@ -99,7 +110,9 @@ const GameDetails = () => {
         )}
       </AnimatePresence>
       <div className=" absolute top-16 right-2 md:top-80 md:right-40 xl:right-60 2xl:right-72 2xl:top-80">
-        <p className=" m-auto mt-24 w-fit  text-xl font-bold text-yellow-500 md:mt-2 md:text-4xl">{metacritic}</p>
+        <p className=" m-auto mt-24 w-fit  text-xl font-bold text-yellow-500 md:mt-2 md:text-4xl" title="metacritic">
+          {metacritic}
+        </p>
       </div>
       <div className="mt-10 pb-24">
         <MixedCarousel images={screenshots} trailer={trailers}></MixedCarousel>
