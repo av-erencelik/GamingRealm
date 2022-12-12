@@ -8,7 +8,7 @@ const Games = () => {
   const games = useSelector((state) => state.games.games);
   const navigate = useNavigate();
   const handleClick = (e) => {
-    navigate(`/game/${e.target.id}`, { replace: true });
+    window.open(`/game/${e.target.id}`, "_blank");
   };
   return (
     <div className=" mt-[2.5rem] w-[100%] flex-wrap gap-3 sm:m-auto sm:mt-28 sm:flex sm:w-[80%] sm:flex-row">

@@ -6,7 +6,6 @@ import { gameDetailsActions } from "../state/gameDetails";
 
 const Game = () => {
   const { id } = useParams();
-  console.log(id);
   const dispatch = useDispatch();
   useEffect(() => {
     const getGameDetails = async () => {
