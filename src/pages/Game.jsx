@@ -1,13 +1,18 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import GameDetails from "../components/game/GameDetails";
 import { gameDetailsActions } from "../state/gameDetails";
 
 const Game = () => {
+  const { id } = useParams();
+  console.log(id);
   const dispatch = useDispatch();
   useEffect(() => {
     const getGameDetails = async () => {
-      const response = await fetch("https://rawg.io/api/games/3118?&page=1&token&key=de0932ab0bf04fb8a288dc63c5891339");
+      const response = await fetch(
+        `https://rawg.io/api/games/${id}?&page=1&token&key=de0932ab0bf04fb8a288dc63c5891339`
+      );
       const data = await response.json();
       dispatch(gameDetailsActions.setName(data.name));
       dispatch(gameDetailsActions.setDescription(data.description));
@@ -28,14 +33,14 @@ const Game = () => {
     };
     const getScreenshots = async () => {
       const response = await fetch(
-        "https://rawg.io/api/games/3118/screenshots?&page=1&token&key=de0932ab0bf04fb8a288dc63c5891339"
+        `https://rawg.io/api/games/${id}/screenshots?&page=1&token&key=de0932ab0bf04fb8a288dc63c5891339`
       );
       const data = await response.json();
       dispatch(gameDetailsActions.setScreenshots(data.results.map((screenshot) => screenshot.image)));
     };
     const getTrailers = async () => {
       const response = await fetch(
-        "https://rawg.io/api/games/3118/movies?&page=1&token&key=de0932ab0bf04fb8a288dc63c5891339"
+        `https://rawg.io/api/games/${id}/movies?&page=1&token&key=de0932ab0bf04fb8a288dc63c5891339`
       );
       const data = await response.json();
       dispatch(

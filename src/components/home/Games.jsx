@@ -2,8 +2,14 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { useNavigate } from "react-router-dom";
+
 const Games = () => {
   const games = useSelector((state) => state.games.games);
+  const navigate = useNavigate();
+  const handleClick = (e) => {
+    navigate(`/game/${e.target.id}`, { replace: true });
+  };
   return (
     <div className=" mt-[2.5rem] w-[100%] flex-wrap gap-3 sm:m-auto sm:mt-28 sm:flex sm:w-[80%] sm:flex-row">
       {games.map((game, index) => {
@@ -15,12 +21,17 @@ const Games = () => {
             key={games.indexOf(game)}
           >
             <div className="relative flex  h-[300px]  w-[100%] flex-col gap-0 overflow-hidden rounded-sm border-[1px] border-gray-400 bg-gradient-to-b from-zinc-100 via-neutral-100 to-stone-100 shadow-xl sm:h-[370px] sm:w-[225px]">
-              <div className="imgdiv h-[100%] max-h-[240px] w-[100%] transition-all hover:opacity-75 sm:max-h-[310px]">
+              <div
+                className="imgdiv h-[100%] max-h-[240px] w-[100%] transition-all hover:opacity-75 sm:max-h-[310px]"
+                id={game.id}
+                onClick={handleClick}
+              >
                 <LazyLoadImage
                   src={game.background_image}
                   alt={game.name}
                   className="h-[100%] w-[100%] cursor-pointer object-cover shadow-md transition-all "
                   effect="blur"
+                  id={game.id}
                 />
               </div>
 
