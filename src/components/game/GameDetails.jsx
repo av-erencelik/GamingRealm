@@ -8,6 +8,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { IoMdHeartDislike } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import Comments from "./Comments";
 const GameDetails = () => {
   const [descriptionOpen, setDescriptionOpen] = useState(false);
   const backgroundAdditional = useSelector((state) => state.gameDetails.background_image_additional);
@@ -125,6 +126,7 @@ const GameDetails = () => {
       <div className="mt-10 pb-24">
         <MixedCarousel images={screenshots} trailer={trailers}></MixedCarousel>
       </div>
+      <Comments></Comments>
     </div>
   );
 };
