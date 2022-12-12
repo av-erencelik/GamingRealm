@@ -66,7 +66,7 @@ const Navbar = () => {
               className="mt-1 w-56 rounded-lg bg-gray-800 py-2 shadow-xl"
             >
               <a
-                href="#"
+                href="/home"
                 className="block px-4 py-2 text-center text-lg text-gray-400 transition hover:bg-gray-700
                 hover:text-white"
               >
@@ -92,7 +92,7 @@ const Navbar = () => {
         <div className="hidden md:block">
           <div className="ml-10 flex items-baseline">
             <a
-              href="/"
+              href="/home"
               className=" rounded-md px-3 py-2 text-base font-semibold text-gray-300 transition hover:bg-gray-700 hover:text-white focus:bg-gray-700 focus:text-white focus:outline-none"
             >
               HOME
