@@ -1,13 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { VscThreeBars } from "react-icons/vsc";
 import { GiGamepad } from "react-icons/gi";
-import { Link } from "react-router-dom";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const searchInput = useRef(null);
   const controls = useAnimation();
-
+  const [searchParameter, setSearchParameter] = useState("");
   const handleInputFocus = () => {
     controls.start({
       x: 5,
@@ -21,6 +20,29 @@ const Navbar = () => {
       transition: { duration: 0.2 },
     });
   };
+  const handleChange = (e) => {
+    setSearchParameter(e.target.value.trim());
+  };
+
+  useEffect(() => {
+    const search = async () => {
+      if (!searchParameter) {
+        return;
+      }
+
+      const response = await fetch(
+        `https://rawg.io/api/games?&search=${searchParameter}&page=1&token&key=de0932ab0bf04fb8a288dc63c5891339`
+      );
+      const data = await response.json();
+      console.log(data);
+    };
+
+    const makeSearch = setTimeout(() => {
+      search();
+    }, 1000);
+
+    return () => clearTimeout(makeSearch);
+  }, [searchParameter]);
 
   return (
     <header className="z-40 flex justify-center bg-gray-800">
@@ -37,6 +59,7 @@ const Navbar = () => {
               className="focus:shadow-outline-blue w-[300px] rounded-full border-2 px-4 py-1 text-gray-400 transition focus:border-gray-400 focus:outline-none sm:w-[500px]"
               onFocus={handleInputFocus}
               onBlur={handleInputBlur}
+              onChange={handleChange}
             />
             <motion.svg
               animate={controls}
