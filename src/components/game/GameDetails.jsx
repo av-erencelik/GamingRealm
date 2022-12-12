@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import MixedCarousel from "./MixedCarousel";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { IoMdHeartDislike } from "react-icons/io";
+import { IoMdHeart } from "react-icons/io";
 import "react-lazy-load-image-component/src/effects/blur.css";
 const GameDetails = () => {
   const [descriptionOpen, setDescriptionOpen] = useState(false);
@@ -41,6 +43,12 @@ const GameDetails = () => {
             className="relative z-50  h-full w-full object-cover"
             effect="blur"
           ></LazyLoadImage>
+          <button className="flex w-full items-center justify-center rounded-sm bg-gray-800 p-1 text-sm font-medium text-gray-300 hover:bg-gray-700 sm:p-2">
+            FAV <IoMdHeart className="ml-2 mt-[0.2rem] sm:mt-[0]"></IoMdHeart>
+          </button>
+          {/* <button className="flex w-full items-center justify-center rounded-sm bg-gray-800 sm:p-2 p-1 text-gray-300 transition-all hover:bg-gray-700 font-medium">
+            UNFAV <IoMdHeartDislike className="ml-2 mt-[0.2rem] sm:mt-[0]"></IoMdHeartDislike>
+          </button> */}
         </div>
         <div className="flex w-[100%] flex-col gap-2 md:mt-[75px] 2xl:mt-[50px]">
           <h3 className="relative font-bold tracking-wider text-gray-300 md:text-3xl 2xl:text-6xl">{name}</h3>
@@ -91,7 +99,7 @@ const GameDetails = () => {
           </div>
         </div>
       </div>
-      <div className="flex cursor-pointer" onClick={() => setDescriptionOpen((prev) => !prev)}>
+      <div className="flex cursor-pointer sm:mt-7" onClick={() => setDescriptionOpen((prev) => !prev)}>
         <h2 className="ml-auto text-xs font-semibold text-gray-800 md:text-sm">Description</h2>
         <motion.div animate={{ rotate: descriptionOpen ? 0 : 180 }} className="mr-auto flex items-center">
           <MdKeyboardArrowDown className="flex h-[15px] w-[15px] items-center font-bold text-gray-800 md:h-[20px] md:w-[20px]"></MdKeyboardArrowDown>
