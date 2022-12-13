@@ -18,7 +18,6 @@ const Navbar = () => {
   };
   useEffect(() => {
     function modalClose(e) {
-      console.log(e.target);
       if (!e.target.classList.contains("game-card")) {
         setIsSearched(false);
       }
