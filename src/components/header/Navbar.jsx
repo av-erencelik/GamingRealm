@@ -2,17 +2,29 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { VscThreeBars } from "react-icons/vsc";
 import { GiGamepad } from "react-icons/gi";
+import SearchCard from "./SearchCard";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const searchInput = useRef(null);
   const controls = useAnimation();
   const [searchParameter, setSearchParameter] = useState("");
+  const [returnedGames, setReturnedGames] = useState([]);
+  const [isSearched, setIsSearched] = useState(false);
   const handleInputFocus = () => {
     controls.start({
       x: 5,
       transition: { duration: 0.2 },
     });
   };
+  useEffect(() => {
+    function modalClose(e) {
+      if (!e.target.classList.contains("game-card")) {
+        setIsSearched(false);
+      }
+    }
+    window.addEventListener("mousedown", modalClose);
+    return () => window.removeEventListener("mousedown", modalClose);
+  });
 
   const handleInputBlur = () => {
     controls.start({
@@ -21,7 +33,7 @@ const Navbar = () => {
     });
   };
   const handleChange = (e) => {
-    setSearchParameter(e.target.value.trim());
+    setSearchParameter(e.target.value.trim().replace(/ /g, "-"));
   };
 
   useEffect(() => {
@@ -34,7 +46,8 @@ const Navbar = () => {
         `https://rawg.io/api/games?&search=${searchParameter}&page=1&token&key=de0932ab0bf04fb8a288dc63c5891339`
       );
       const data = await response.json();
-      console.log(data);
+      setReturnedGames(data.results);
+      setIsSearched(true);
     };
 
     const makeSearch = setTimeout(() => {
@@ -50,13 +63,13 @@ const Navbar = () => {
         <div className="items-center]  flex">
           <GiGamepad className="h-10 w-10 text-gray-400"></GiGamepad>
         </div>
-        <div className="relative inline-block text-gray-200">
+        <div className="relative inline-block text-gray-800">
           <div className="relative inline-block">
             <input
               ref={searchInput}
               type="text"
               placeholder="Search"
-              className="focus:shadow-outline-blue w-[300px] rounded-full border-2 px-4 py-1 text-gray-400 transition focus:border-gray-400 focus:outline-none sm:w-[500px]"
+              className="focus:shadow-outline-blue w-[300px] rounded-full border-2 px-4 py-1 text-gray-800 transition focus:border-gray-400 focus:outline-none sm:w-[500px]"
               onFocus={handleInputFocus}
               onBlur={handleInputBlur}
               onChange={handleChange}
@@ -70,6 +83,13 @@ const Navbar = () => {
               <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" />
             </motion.svg>
           </div>
+          {isSearched && (
+            <div className="absolute top-10 z-50 h-[200px] w-full overflow-y-scroll rounded-xl bg-white">
+              {returnedGames.map((game, index) => {
+                return <SearchCard name={game.name} image={game.background_image} key={index} id={game.id} />;
+              })}
+            </div>
+          )}
         </div>
         <div className="relative inline-block text-gray-200 md:hidden">
           <button
