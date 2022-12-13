@@ -11,8 +11,10 @@ const SearchCard = ({ name, image, id }) => {
       id={id}
       onClick={handleOnClick}
     >
-      <img src={image} className="h-[50px] w-[35px] object-cover"></img>
-      <h3 className="text-sm">{name}</h3>
+      <img src={image} className="game-card h-[50px] w-[35px] object-cover" id={id}></img>
+      <h3 className="game-card text-sm" id={id}>
+        {name}
+      </h3>
     </div>
   );
 };
