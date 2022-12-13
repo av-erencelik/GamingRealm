@@ -3,6 +3,7 @@ import Footer from "./components/footer";
 import Navbar from "./components/header/Navbar";
 import Game from "./pages/Game";
 import Auth from "./pages/Auth";
+import Home from "./pages/Home";
 
 function App() {
   const RedirectHome = () => {
