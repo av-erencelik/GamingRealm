@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import addAvatar from "../../utilities/imgs/addAvatar.png";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { auth } from "../../firebase";
 
 const Register = () => {
   const [error, setError] = useState("");

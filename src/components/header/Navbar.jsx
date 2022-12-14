@@ -116,18 +116,18 @@ const Navbar = () => {
                 HOME
               </a>
               <a
-                href="#"
+                href="/profile"
                 className="block px-4 py-2 text-center text-lg text-gray-400 transition hover:bg-gray-700
                 hover:text-white"
               >
                 PROFILE
               </a>
               <a
-                href="#"
+                href="/login"
                 className="block px-4 py-2 text-center text-lg text-gray-400 transition hover:bg-gray-700
                 hover:text-white"
               >
-                LOGOUT
+                LOGIN
               </a>
             </motion.div>
           )}
@@ -146,9 +146,12 @@ const Navbar = () => {
             >
               PROFILE
             </a>
-            <button className="ml-4 rounded-md px-3 py-2 text-base font-semibold text-gray-300 transition hover:bg-gray-700 hover:text-white ">
-              LOGOUT
-            </button>
+            <a
+              href="/login"
+              className="ml-4 rounded-md px-3 py-2 text-base font-semibold text-gray-300 transition hover:bg-gray-700 hover:text-white "
+            >
+              LOGIN
+            </a>
           </div>
         </div>
       </nav>
