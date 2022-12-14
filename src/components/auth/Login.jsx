@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
 
 const Login = () => {
   const formik = useFormik({
@@ -18,9 +20,12 @@ const Login = () => {
         .matches(/\d+/, "Must contain one number"),
       email: Yup.string().email("*Invalid email address").required("*Required"),
     }),
-    onSubmit: (values) => {
-      setError("");
-      console.log(values);
+    onSubmit: async (data) => {
+      try {
+        await signInWithEmailAndPassword(auth, data.email, data.password);
+      } catch (err) {
+        console.log("Something went wrong!");
+      }
     },
   });
   const [error, setError] = useState("");
