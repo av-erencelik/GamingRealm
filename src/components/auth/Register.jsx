@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import addAvatar from "../../utilities/imgs/addAvatar.png";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { auth } from "../../firebase";
-
+import { auth, db, storage } from "../../firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { doc, setDoc } from "firebase/firestore";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 const Register = () => {
   const [error, setError] = useState("");
   const formik = useFormik({
@@ -36,9 +38,29 @@ const Register = () => {
           return false;
         }),
     }),
-    onSubmit: (values) => {
-      setError("");
-      console.log(values);
+    onSubmit: async (data) => {
+      try {
+        const response = await createUserWithEmailAndPassword(auth, data.email, data.password);
+        const storageRef = ref(storage, data.username);
+        console.log(response.user);
+        await uploadBytesResumable(storageRef, data.file).then(() => {
+          getDownloadURL(storageRef).then(async (downloadURL) => {
+            try {
+              await updateProfile(response.user, {
+                username: data.username,
+                photoURL: downloadURL,
+              });
+              await setDoc(doc(db, "favGames", response.user.uid), {
+                favs: [],
+              });
+            } catch (err) {
+              console.log(err);
+            }
+          });
+        });
+      } catch (err) {
+        console.log(err);
+      }
     },
   });
   return (
