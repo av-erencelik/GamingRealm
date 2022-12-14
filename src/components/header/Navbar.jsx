@@ -3,7 +3,13 @@ import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { VscThreeBars } from "react-icons/vsc";
 import { GiGamepad } from "react-icons/gi";
 import SearchCard from "./SearchCard";
+import { useContext } from "react";
+import { AuthContext } from "../../state/AuthContext";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
+
 const Navbar = () => {
+  const { currentUser } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const searchInput = useRef(null);
   const controls = useAnimation();
@@ -115,20 +121,32 @@ const Navbar = () => {
               >
                 HOME
               </a>
-              <a
-                href="/profile"
-                className="block px-4 py-2 text-center text-lg text-gray-400 transition hover:bg-gray-700
+              {currentUser ? (
+                <>
+                  <a
+                    href="/profile"
+                    className="block px-4 py-2 text-center text-lg text-gray-400 transition hover:bg-gray-700
                 hover:text-white"
-              >
-                PROFILE
-              </a>
-              <a
-                href="/login"
-                className="block px-4 py-2 text-center text-lg text-gray-400 transition hover:bg-gray-700
+                  >
+                    PROFILE
+                  </a>
+                  <button
+                    onClick={() => signOut(auth)}
+                    className="block px-4 py-2 text-center text-lg text-gray-400 transition hover:bg-gray-700
                 hover:text-white"
-              >
-                LOGIN
-              </a>
+                  >
+                    LOGOUT
+                  </button>
+                </>
+              ) : (
+                <a
+                  href="/login"
+                  className="block px-4 py-2 text-center text-lg text-gray-400 transition hover:bg-gray-700
+                hover:text-white"
+                >
+                  LOGIN
+                </a>
+              )}
             </motion.div>
           )}
         </AnimatePresence>
@@ -140,18 +158,29 @@ const Navbar = () => {
             >
               HOME
             </a>
-            <a
-              href="/profile"
-              className="ml-4 rounded-md px-3 py-2 text-base font-semibold text-gray-300 transition hover:bg-gray-700 hover:text-white focus:bg-gray-700 focus:text-white focus:outline-none"
-            >
-              PROFILE
-            </a>
-            <a
-              href="/login"
-              className="ml-4 rounded-md px-3 py-2 text-base font-semibold text-gray-300 transition hover:bg-gray-700 hover:text-white "
-            >
-              LOGIN
-            </a>
+            {currentUser ? (
+              <>
+                <a
+                  href="/profile"
+                  className="ml-4 rounded-md px-3 py-2 text-base font-semibold text-gray-300 transition hover:bg-gray-700 hover:text-white focus:bg-gray-700 focus:text-white focus:outline-none"
+                >
+                  PROFILE
+                </a>
+                <button
+                  onClick={() => signOut(auth)}
+                  className="ml-4 rounded-md px-3 py-2 text-base font-semibold text-gray-300 transition hover:bg-gray-700 hover:text-white focus:bg-gray-700 focus:text-white focus:outline-none"
+                >
+                  LOGOUT
+                </button>
+              </>
+            ) : (
+              <a
+                href="/login"
+                className="ml-4 rounded-md px-3 py-2 text-base font-semibold text-gray-300 transition hover:bg-gray-700 hover:text-white "
+              >
+                LOGIN
+              </a>
+            )}
           </div>
         </div>
       </nav>

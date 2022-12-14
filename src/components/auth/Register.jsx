@@ -42,12 +42,11 @@ const Register = () => {
       try {
         const response = await createUserWithEmailAndPassword(auth, data.email, data.password);
         const storageRef = ref(storage, data.username);
-        console.log(response.user);
         await uploadBytesResumable(storageRef, data.file).then(() => {
           getDownloadURL(storageRef).then(async (downloadURL) => {
             try {
               await updateProfile(response.user, {
-                username: data.username,
+                displayName: data.username,
                 photoURL: downloadURL,
               });
               await setDoc(doc(db, "favGames", response.user.uid), {
