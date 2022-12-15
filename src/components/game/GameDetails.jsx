@@ -9,10 +9,11 @@ import { IoMdHeartDislike } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import Comments from "./Comments";
-import { arrayRemove, arrayUnion, doc, onSnapshot, updateDoc } from "firebase/firestore";
+import { arrayRemove, arrayUnion, doc, getDoc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { AuthContext } from "../../state/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { async } from "@firebase/util";
 
 const GameDetails = ({ id }) => {
   const navigate = useNavigate();
@@ -46,6 +47,7 @@ const GameDetails = ({ id }) => {
     };
     currentUser && getFavs();
   }, [currentUser]);
+
   const handleFav = async () => {
     if (!currentUser) {
       navigate("/login");
@@ -176,7 +178,7 @@ const GameDetails = ({ id }) => {
       <div className="mt-10 pb-24">
         <MixedCarousel images={screenshots} trailer={trailers}></MixedCarousel>
       </div>
-      <Comments></Comments>
+      <Comments id={id}></Comments>
     </div>
   );
 };
