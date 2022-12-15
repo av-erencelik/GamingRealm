@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { db } from "../firebase";
 import { arrayRemove, doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { AnimatePresence, motion } from "framer-motion";
-import { MdKeyboardArrowDown } from "react-icons/md";
+import { MdKeyboardArrowDown, MdRemoveCircle } from "react-icons/md";
 
 const Profile = ({ currentUser }) => {
   const [allFavs, setAllFavs] = useState([]);
@@ -29,6 +29,16 @@ const Profile = ({ currentUser }) => {
   }, [currentUser]);
   const handleOnClick = (e) => {
     window.open(`/game/${e.target.id}`, "_blank");
+  };
+  const handleRemove = async (e) => {
+    let objectWillDelete = allFavs.filter((obj) => obj.id === e.target.id);
+    await updateDoc(doc(db, "favGames", currentUser.uid), {
+      favs: arrayRemove({
+        id: objectWillDelete[0].id,
+        backgroundImage: objectWillDelete[0].backgroundImage,
+        name: objectWillDelete[0].name,
+      }),
+    });
   };
   return (
     <div className="min-h-[83vh] items-center justify-center bg-gray-300 md:flex md:min-h-[88vh]">
@@ -90,15 +100,29 @@ const Profile = ({ currentUser }) => {
                   {allFavs.map((game, index) => {
                     return (
                       <div
-                        id={game.id}
-                        className="flex w-[100%] cursor-pointer items-center gap-10 p-2 transition-all hover:bg-gray-700"
+                        className="flex w-[100%] cursor-pointer items-center transition-all hover:bg-gray-700"
                         key={index}
-                        onClick={handleOnClick}
                       >
-                        <img src={game.backgroundImage} className="h-[120px] w-[100px] object-cover" id={game.id}></img>
-                        <h3 className="text-base text-gray-300" id={game.id}>
-                          {game.name}
-                        </h3>
+                        <div
+                          id={game.id}
+                          className="flex w-[100%] cursor-pointer items-center gap-10 p-2 "
+                          onClick={handleOnClick}
+                        >
+                          <img
+                            src={game.backgroundImage}
+                            className="h-[120px] w-[100px] object-cover"
+                            id={game.id}
+                          ></img>
+                          <h3 className="text-base text-gray-300" id={game.id}>
+                            {game.name}
+                          </h3>
+                        </div>
+                        <button id={game.id} onClick={handleRemove} className="flex items-center">
+                          <span className="text-base text-gray-300" id={game.id}>
+                            Delete
+                          </span>
+                          <MdRemoveCircle className="h-[20px] w-[20px] text-gray-300" id={game.id}></MdRemoveCircle>
+                        </button>
                       </div>
                     );
                   })}

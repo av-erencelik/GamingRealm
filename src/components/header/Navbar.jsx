@@ -132,8 +132,8 @@ const Navbar = () => {
                   </a>
                   <button
                     onClick={() => signOut(auth)}
-                    className="block px-4 py-2 text-center text-lg text-gray-400 transition hover:bg-gray-700
-                hover:text-white"
+                    className="block w-full px-4 py-2 text-center text-lg text-gray-400 transition
+                hover:bg-gray-700 hover:text-white"
                   >
                     LOGOUT
                   </button>
