@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import MixedCarousel from "./MixedCarousel";
 import { MdKeyboardArrowDown } from "react-icons/md";
@@ -9,7 +9,13 @@ import { IoMdHeartDislike } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import Comments from "./Comments";
-const GameDetails = () => {
+import { arrayRemove, arrayUnion, doc, onSnapshot, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase";
+import { AuthContext } from "../../state/AuthContext";
+
+const GameDetails = ({ id }) => {
+  const { currentUser } = useContext(AuthContext);
+  const [allFavs, setAllFavs] = useState([]);
   const [descriptionOpen, setDescriptionOpen] = useState(false);
   const backgroundAdditional = useSelector((state) => state.gameDetails.background_image_additional);
   const backgroundImage = useSelector((state) => state.gameDetails.background_image);
@@ -28,6 +34,35 @@ const GameDetails = () => {
       document.getElementById("description").innerHTML = description;
     }
   }, [descriptionOpen]);
+  useEffect(() => {
+    const getFavs = () => {
+      const favs = onSnapshot(doc(db, "favGames", currentUser.uid), (doc) => {
+        console.log(doc.data().favs);
+        setAllFavs(doc.data().favs);
+      });
+      return () => [favs()];
+    };
+    currentUser && getFavs();
+  }, [currentUser]);
+  const handleFav = async () => {
+    if (allFavs.find((f) => f.id === id)) {
+      await updateDoc(doc(db, "favGames", currentUser.uid), {
+        favs: arrayRemove({
+          id,
+          backgroundImage,
+          name,
+        }),
+      });
+    } else {
+      await updateDoc(doc(db, "favGames", currentUser.uid), {
+        favs: arrayUnion({
+          id,
+          backgroundImage,
+          name,
+        }),
+      });
+    }
+  };
   return (
     <div className="relative">
       <div className=" -z-10 h-[200px] max-h-[400px] w-full overflow-hidden md:h-[400px]">
@@ -44,12 +79,21 @@ const GameDetails = () => {
             className="relative z-50  h-full w-full object-cover"
             effect="blur"
           ></LazyLoadImage>
-          <button className="flex w-full items-center justify-center rounded-sm bg-gray-800 p-1 text-sm font-medium text-gray-300 hover:bg-gray-700 sm:p-2">
-            FAV <IoMdHeart className="ml-2 mt-[0.2rem] sm:mt-[0]"></IoMdHeart>
-          </button>
-          {/* <button className="flex w-full items-center justify-center rounded-sm bg-gray-800 sm:p-2 p-1 text-gray-300 transition-all hover:bg-gray-700 font-medium">
-            UNFAV <IoMdHeartDislike className="ml-2 mt-[0.2rem] sm:mt-[0]"></IoMdHeartDislike>
-          </button> */}
+          {allFavs.find((f) => f.id === id) ? (
+            <button
+              className="flex w-full items-center justify-center rounded-sm bg-gray-800 p-1 text-sm font-medium text-gray-300 transition-all hover:bg-gray-700 sm:p-2"
+              onClick={handleFav}
+            >
+              UNFAV <IoMdHeartDislike className="ml-2 mt-[0.2rem] sm:mt-[0]"></IoMdHeartDislike>
+            </button>
+          ) : (
+            <button
+              className="flex w-full items-center justify-center rounded-sm bg-gray-800 p-1 text-sm font-medium text-gray-300 hover:bg-gray-700 sm:p-2"
+              onClick={handleFav}
+            >
+              FAV <IoMdHeart className="ml-2 mt-[0.2rem] sm:mt-[0]"></IoMdHeart>
+            </button>
+          )}
         </div>
         <div className="flex w-[100%] flex-col gap-2 md:mt-[75px] 2xl:mt-[50px]">
           <h3 className="relative font-bold tracking-wider text-gray-300 md:text-3xl 2xl:text-6xl">{name}</h3>

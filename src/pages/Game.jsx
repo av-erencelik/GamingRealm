@@ -56,7 +56,7 @@ const Game = () => {
   });
   return (
     <main className="min-h-[80vh] bg-gray-300 md:min-h-[100vh]">
-      <GameDetails></GameDetails>
+      <GameDetails id={id}></GameDetails>
     </main>
   );
 };
