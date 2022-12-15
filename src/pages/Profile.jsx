@@ -8,7 +8,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 const Profile = ({ currentUser }) => {
   const [allFavs, setAllFavs] = useState([]);
   const [profileOpen, setProfileOpen] = useState(true);
-  const [favsOpen, setFavsOpen] = useState(false);
+  const [favsOpen, setFavsOpen] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
