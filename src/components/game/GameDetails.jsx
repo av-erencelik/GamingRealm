@@ -12,8 +12,10 @@ import Comments from "./Comments";
 import { arrayRemove, arrayUnion, doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { AuthContext } from "../../state/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const GameDetails = ({ id }) => {
+  const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
   const [allFavs, setAllFavs] = useState([]);
   const [descriptionOpen, setDescriptionOpen] = useState(false);
@@ -45,6 +47,10 @@ const GameDetails = ({ id }) => {
     currentUser && getFavs();
   }, [currentUser]);
   const handleFav = async () => {
+    if (!currentUser) {
+      navigate("/login");
+      return;
+    }
     if (allFavs.find((f) => f.id === id)) {
       await updateDoc(doc(db, "favGames", currentUser.uid), {
         favs: arrayRemove({
