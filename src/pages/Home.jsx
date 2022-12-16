@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Footer from "../components/footer";
 import Carousel from "../components/home/Carousel";
 import Display from "../components/home/Display";
 import { gamesActions } from "../state/games";
