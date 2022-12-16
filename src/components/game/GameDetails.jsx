@@ -105,11 +105,15 @@ const GameDetails = ({ id }) => {
             )}
           </div>
           <div className="flex w-[100%] flex-col gap-2 md:mt-[75px] 2xl:mt-[50px]">
-            <h3 className="relative font-bold tracking-wider text-gray-300 md:text-3xl 2xl:text-6xl">{name}</h3>
+            <h3 className="relative w-[180px] min-w-full overflow-hidden font-bold tracking-wider text-gray-300 md:text-3xl 2xl:text-6xl">
+              <span className="block truncate">{name}</span>
+            </h3>
             <h5 className="relative pl-1 font-medium text-gray-300 md:text-xl md:font-semibold 2xl:text-2xl">
               {moment(releaseDate, "YYYY-MM-DD").format("MMMM D, Y")}
             </h5>
-            <h5 className="relative pl-1 italic text-gray-300 md:text-xl 2xl:text-2xl">{publisherName}</h5>
+            <h5 className="relative w-[100px] min-w-[80%] overflow-hidden pl-1 italic text-gray-300 md:text-xl 2xl:text-2xl">
+              <span className="block truncate">{publisherName}</span>
+            </h5>
             <div className="mt-6 md:mt-10 2xl:mt-8">
               <span className="text-xs font-semibold text-gray-800 md:text-sm">Genre: </span>
               {genres.map((genre, index) => {

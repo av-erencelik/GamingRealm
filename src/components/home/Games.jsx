@@ -2,11 +2,9 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import { useNavigate } from "react-router-dom";
 
 const Games = () => {
   const games = useSelector((state) => state.games.games);
-  const navigate = useNavigate();
   const handleClick = (e) => {
     window.open(`/game/${e.target.id}`, "_blank");
   };
