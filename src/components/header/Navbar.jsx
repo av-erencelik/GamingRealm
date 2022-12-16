@@ -49,7 +49,7 @@ const Navbar = () => {
       }
 
       const response = await fetch(
-        `https://rawg.io/api/games?&search=${searchParameter}&page=1&token&key=de0932ab0bf04fb8a288dc63c5891339`
+        `https://rawg.io/api/games?&search=${searchParameter}&page=1&token&key=${import.meta.env.VITE_RAWG_API_KEY}`
       );
       const data = await response.json();
       setReturnedGames(data.results);

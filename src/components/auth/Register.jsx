@@ -4,8 +4,9 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { auth, db, storage } from "../../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { doc, setDoc } from "firebase/firestore";
+import { arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+
 const Register = () => {
   const [error, setError] = useState("");
   const formik = useFormik({
@@ -40,6 +41,20 @@ const Register = () => {
     }),
     onSubmit: async (data) => {
       try {
+        const res = await getDoc(doc(db, "users", "usernames"));
+        if (!res.exists()) {
+          await setDoc(doc(db, "users", "usernames"), {
+            usernames: [],
+          });
+        }
+        if (res.exists() && res.data().usernames.includes(data.username)) {
+          throw "Username already in use!";
+        } else {
+          await updateDoc(doc(db, "users", "usernames"), {
+            usernames: arrayUnion(data.username),
+          });
+        }
+
         const response = await createUserWithEmailAndPassword(auth, data.email, data.password);
         const storageRef = ref(storage, data.username);
         await uploadBytesResumable(storageRef, data.file).then(() => {
@@ -57,8 +72,12 @@ const Register = () => {
             }
           });
         });
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        if (error.message === "Firebase: Error (auth/email-already-in-use).") {
+          setError("Email is alreay in use! Please, try to sing up with another email or login with current email");
+        } else {
+          setError(error.message || error);
+        }
       }
     },
   });
@@ -127,6 +146,7 @@ const Register = () => {
       >
         Register
       </button>
+      {error != "" && <div className=" text-center text-sm text-red-600">{error}</div>}
     </form>
   );
 };

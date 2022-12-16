@@ -14,7 +14,6 @@ function App() {
     return <Navigate to="/home"></Navigate>;
   };
   const ProtectedRoute = (props) => {
-    console.log(!!currentUser);
     if (!!currentUser) {
       return <Navigate to="/home"></Navigate>;
     }
