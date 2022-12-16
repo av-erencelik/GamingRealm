@@ -10,9 +10,9 @@ const Profile = ({ currentUser }) => {
   const [profileOpen, setProfileOpen] = useState(true);
   const [favsOpen, setFavsOpen] = useState(true);
   const navigate = useNavigate();
-
+  console.log(currentUser);
   useEffect(() => {
-    if (currentUser == "") {
+    if (currentUser == null) {
       return;
     } else if (!currentUser) {
       navigate("/home");

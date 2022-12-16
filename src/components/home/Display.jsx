@@ -14,6 +14,7 @@ const Display = (props) => {
       <section>
         <Games></Games>
         {props.isLoading && <ThreeDotsWave />}
+        {props.error && <h2 className="mt-10 text-center text-xl font-semibold text-gray-800">{props.error}</h2>}
       </section>
     </>
   );
