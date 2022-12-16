@@ -7,6 +7,8 @@ const initialFilterState = {
     min: "0",
     max: "100",
   },
+  platformSelectedButton: "",
+  categorySelectedButton: "",
 };
 
 const filtersSlice = createSlice({
@@ -27,6 +29,12 @@ const filtersSlice = createSlice({
     },
     setGenreEmpty(state) {
       state.genre = "";
+    },
+    setPlatformSelectedButton(state, action) {
+      state.platformSelectedButton = action.payload;
+    },
+    setCategorySelectedButton(state, action) {
+      state.categorySelectedButton = action.payload;
     },
   },
 });

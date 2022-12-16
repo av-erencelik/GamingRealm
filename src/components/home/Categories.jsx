@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { filtersActions } from "../../state/filters";
 
 const Categories = () => {
-  const [activeButton, setActiveButton] = useState(null);
+  const activeButton = useSelector((state) => state.filters.categorySelectedButton);
   const genres = useSelector((state) => state.games.genres);
   const dispatch = useDispatch();
   const [categoriesOpened, setCategoriesOpened] = useState(false);
@@ -13,13 +13,7 @@ const Categories = () => {
     setCategoriesOpened((prev) => !prev);
   };
   const genreChoice = (e) => {
-    if (!activeButton) {
-      document.getElementById("all").classList.remove("bg-gray-900");
-    } else {
-      activeButton.classList.remove("bg-gray-900");
-    }
-    e.target.classList.add("bg-gray-900");
-    setActiveButton(e.target);
+    dispatch(filtersActions.setCategorySelectedButton(e.target.innerHTML));
     const selectedGenre = `&genres=${e.target.value}`;
 
     if (e.target.innerHTML == "All") {
@@ -46,7 +40,9 @@ const Categories = () => {
             transition={{ duration: 0.5 }}
           >
             <button
-              className="rounded-md bg-gray-900 p-2 font-normal text-gray-200 transition hover:bg-gray-700 hover:text-white sm:font-semibold"
+              className={`rounded-md ${
+                activeButton === "" && "bg-gray-900"
+              } p-2 font-normal text-gray-200 transition hover:bg-gray-700 hover:text-white sm:font-semibold`}
               id="all"
               onClick={genreChoice}
             >
@@ -55,7 +51,9 @@ const Categories = () => {
             {genres.map((genre) => {
               return (
                 <button
-                  className="rounded-md p-2 font-normal text-gray-200 transition hover:bg-gray-700 hover:text-white sm:font-semibold"
+                  className={`rounded-md ${
+                    activeButton === genre.name && "bg-gray-900"
+                  } p-2 font-normal text-gray-200 transition hover:bg-gray-700 hover:text-white sm:font-semibold`}
                   key={genre.id}
                   value={genre.slug}
                   onClick={genreChoice}

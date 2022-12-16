@@ -24,7 +24,7 @@ const Comments = ({ id }) => {
     getComments();
   }, []);
   return (
-    <section className="m-auto w-full border-gray-900 pb-5 md:w-[70%]">
+    <section className="m-auto w-full border-gray-900 pb-10 md:w-[70%]">
       <CommentInput id={id} />
       {allComments.map((comment, index) => {
         return <Comment index={index} key={index} comment={comment} />;

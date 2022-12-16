@@ -21,7 +21,7 @@ function App() {
     return props.children;
   };
   return (
-    <div className="h-[100vh]">
+    <div className="relative h-[100vh] bg-gray-800">
       <Navbar></Navbar>
       <Routes>
         <Route path="/" element={<RedirectHome></RedirectHome>}></Route>

@@ -1,29 +1,26 @@
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { filtersActions } from "../../state/filters";
 
 const Platform = () => {
   const [isPlatformsOpened, setIsPlatformsOpened] = useState(false);
-  const [activeButton, setActiveButton] = useState(null);
+  const activeButton = useSelector((state) => state.filters.platformSelectedButton);
+  console.log(activeButton);
   const dispatch = useDispatch();
   const handleClick = () => {
     setIsPlatformsOpened((prev) => !prev);
   };
-  function handlePlatformChoose(e) {
-    if (activeButton) {
-      activeButton.classList.remove("bg-gray-400");
-    } else {
-      document.getElementById("platformAll").classList.remove("bg-gray-400");
-    }
-    e.target.classList.add("bg-gray-400");
-    setActiveButton(e.target);
-    const selectedPlatform = `&platforms=${e.target.id}`;
 
+  function handlePlatformChoose(e) {
+    const selectedPlatform = `&platforms=${e.target.id}`;
+    console.log(e.target.innerHTML);
     if (e.target.innerHTML == "All") {
+      dispatch(filtersActions.setPlatformSelectedButton(""));
       dispatch(filtersActions.setPlatform(""));
     } else {
+      dispatch(filtersActions.setPlatformSelectedButton(`${e.target.innerHTML}`));
       dispatch(filtersActions.setPlatform(selectedPlatform));
     }
   }
@@ -47,14 +44,18 @@ const Platform = () => {
             transition={{ duration: 0.2 }}
           >
             <p
-              className="  bg-gray-400 pl-3 font-normal text-gray-800 transition hover:bg-gray-400"
+              className={` pl-3 font-normal text-gray-800 transition hover:bg-gray-400 ${
+                activeButton === "" && "bg-gray-400"
+              }`}
               id="platformAll"
               onClick={handlePlatformChoose}
             >
               All
             </p>
             <p
-              className="   pl-3 font-normal text-gray-800 transition hover:bg-gray-400"
+              className={` pl-3 font-normal text-gray-800 transition hover:bg-gray-400 ${
+                activeButton === "Pc" && "bg-gray-400"
+              }`}
               id="4"
               onClick={handlePlatformChoose}
             >
@@ -62,35 +63,45 @@ const Platform = () => {
             </p>
             <p
               id="18"
-              className="pl-3 font-normal text-gray-800 transition hover:bg-gray-400"
+              className={` pl-3 font-normal text-gray-800 transition hover:bg-gray-400 ${
+                activeButton === "Ps4" && "bg-gray-400"
+              }`}
               onClick={handlePlatformChoose}
             >
               Ps4
             </p>
             <p
               id="187"
-              className=" pl-3 font-normal text-gray-800 transition hover:bg-gray-400"
+              className={` pl-3 font-normal text-gray-800 transition hover:bg-gray-400 ${
+                activeButton === "Ps5" && "bg-gray-400"
+              }`}
               onClick={handlePlatformChoose}
             >
               Ps5
             </p>
             <p
               id="1"
-              className="pl-3 font-normal text-gray-800 transition hover:bg-gray-400"
+              className={` pl-3 font-normal text-gray-800 transition hover:bg-gray-400 ${
+                activeButton === "Xbox One/S" && "bg-gray-400"
+              }`}
               onClick={handlePlatformChoose}
             >
               Xbox One/S
             </p>
             <p
               id="186"
-              className="pl-3 font-normal text-gray-800 transition hover:bg-gray-400"
+              className={` pl-3 font-normal text-gray-800 transition hover:bg-gray-400 ${
+                activeButton === "Xbox Series S/X" && "bg-gray-400"
+              }`}
               onClick={handlePlatformChoose}
             >
               Xbox Series S/X
             </p>
             <p
               id="7"
-              className=" pl-3 font-normal text-gray-800 transition hover:bg-gray-400"
+              className={` pl-3 font-normal text-gray-800 transition hover:bg-gray-400 ${
+                activeButton === "Nintendo Switch" && "bg-gray-400"
+              }`}
               onClick={handlePlatformChoose}
             >
               Nintendo Switch
