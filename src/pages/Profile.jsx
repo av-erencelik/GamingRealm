@@ -10,13 +10,17 @@ const Profile = ({ currentUser }) => {
   const [profileOpen, setProfileOpen] = useState(true);
   const [favsOpen, setFavsOpen] = useState(true);
   const navigate = useNavigate();
-  console.log(currentUser);
   useEffect(() => {
-    if (currentUser == null) {
-      return;
-    } else if (!currentUser) {
-      navigate("/home");
-    }
+    const checkUser = () => {
+      if (currentUser === "") {
+        return;
+      } else if (currentUser) {
+        return;
+      } else {
+        navigate("/home");
+      }
+    };
+    checkUser();
   }, [currentUser]);
   useEffect(() => {
     const getFavs = () => {
@@ -51,7 +55,7 @@ const Profile = ({ currentUser }) => {
         </div>
 
         <AnimatePresence>
-          {profileOpen && (
+          {profileOpen && currentUser && (
             <motion.div
               id="description"
               className=" mb-5 flex items-center justify-center gap-5 text-xs text-gray-300"
