@@ -34,7 +34,10 @@ const CommentInput = ({ id }) => {
   return (
     <div>
       <div className="m-auto flex w-[95%] items-center gap-1 md:w-[70%] md:gap-3">
-        <img src={currentUser.photoURL} className="h-[55px] w-[55px] rounded-full object-cover"></img>
+        <img
+          src={currentUser ? currentUser.photoURL : defaultPP}
+          className="h-[55px] w-[55px] rounded-full object-cover"
+        ></img>
         <form className="m-auto flex w-[100%] gap-1 md:gap-3" onSubmit={formik.handleSubmit}>
           <textarea
             type="text"
