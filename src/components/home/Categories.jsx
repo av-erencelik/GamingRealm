@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { motion, AnimatePresence } from "framer-motion";
 import { filtersActions } from "../../state/filters";
+import { gamesActions } from "../../state/games";
 
-const Categories = () => {
+const Categories = (props) => {
   const activeButton = useSelector((state) => state.filters.categorySelectedButton);
   const genres = useSelector((state) => state.games.genres);
   const dispatch = useDispatch();
@@ -18,8 +19,12 @@ const Categories = () => {
 
     if (e.target.innerHTML == "All") {
       dispatch(filtersActions.setGenreEmpty());
+      dispatch(gamesActions.setGames([]));
+      props.setPage(1);
     } else {
       dispatch(filtersActions.setGenre(selectedGenre));
+      dispatch(gamesActions.setGames([]));
+      props.setPage(1);
     }
   };
   return (

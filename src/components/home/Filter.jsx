@@ -4,7 +4,7 @@ import Platform from "./Platform";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { AnimatePresence, motion } from "framer-motion";
 
-const Filter = () => {
+const Filter = (props) => {
   const [isFilterOpened, setIsFilterOpened] = useState(false);
   return (
     <aside className=" z-30 mt-0 w-[50%] rounded-none bg-gray-800 p-2 sm:w-[250px] sm:rounded-b-md sm:rounded-bl-none sm:rounded-tr-md  sm:p-5">
@@ -26,8 +26,8 @@ const Filter = () => {
             transition={{ duration: 0.2 }}
             className=" z-30 mt-4"
           >
-            <Platform></Platform>
-            <Metacritic></Metacritic>
+            <Platform setPage={props.setPage}></Platform>
+            <Metacritic setPage={props.setPage}></Metacritic>
           </motion.div>
         )}
       </AnimatePresence>

@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch } from "react-redux";
 import { filtersActions } from "../../state/filters";
+import { gamesActions } from "../../state/games";
 
 const schema = yup
   .object({
@@ -26,7 +27,7 @@ const schema = yup
       .max(100, "The maximum value must be at most 100"),
   })
   .required();
-const Metacritic = () => {
+const Metacritic = (props) => {
   const [isMetacriticOpened, setIsMetacriticOpened] = useState(false);
   const dispatch = useDispatch();
   const {
@@ -37,8 +38,10 @@ const Metacritic = () => {
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
+    dispatch(gamesActions.setGames([]));
     dispatch(filtersActions.setMetacriticMin(data.min));
     dispatch(filtersActions.setMetacriticMax(data.max));
+    props.setPage(1);
   };
   return (
     <div className="flex w-[100%] cursor-pointer flex-col items-center justify-center rounded-md transition ">
