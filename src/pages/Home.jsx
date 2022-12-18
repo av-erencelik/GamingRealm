@@ -109,7 +109,7 @@ const Home = () => {
   }, [genre, platform, metacritic]);
   useEffect(() => {
     const onScroll = function () {
-      if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
+      if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 10) {
         setIsLoading(true);
         setPage((prev) => prev + 1);
       }
