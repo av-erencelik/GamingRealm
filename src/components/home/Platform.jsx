@@ -14,6 +14,8 @@ const Platform = (props) => {
   };
 
   function handlePlatformChoose(e) {
+    setIsPlatformsOpened(false);
+    window.scrollTo({ top: 0 });
     const selectedPlatform = `&platforms=${e.target.id}`;
     if (e.target.innerHTML == "All") {
       dispatch(filtersActions.setPlatformSelectedButton(""));

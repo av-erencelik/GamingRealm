@@ -89,7 +89,7 @@ const Home = () => {
 
   return (
     <>
-      <main className="min-h-[100vh] bg-gray-200 p-0 sm:p-10">
+      <main className="min-h-[150vh] bg-gray-200 p-0 sm:p-10">
         <Carousel games={carouselGames}></Carousel>
         <Display isLoading={isLoading} error={error}></Display>
       </main>

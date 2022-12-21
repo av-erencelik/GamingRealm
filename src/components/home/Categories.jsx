@@ -16,12 +16,14 @@ const Categories = (props) => {
   const genreChoice = (e) => {
     dispatch(filtersActions.setCategorySelectedButton(e.target.innerHTML));
     const selectedGenre = `&genres=${e.target.value}`;
-
+    window.scrollTo({ top: 0 });
     if (e.target.innerHTML == "All") {
+      setCategoriesOpened(false);
       dispatch(gamesActions.setGames([]));
       dispatch(gamesActions.setPage(1));
       dispatch(filtersActions.setGenreEmpty());
     } else {
+      setCategoriesOpened(false);
       dispatch(gamesActions.setGames([]));
       dispatch(gamesActions.setPage(1));
       dispatch(filtersActions.setGenre(selectedGenre));

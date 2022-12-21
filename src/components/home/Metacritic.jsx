@@ -38,6 +38,8 @@ const Metacritic = (props) => {
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
+    window.scrollTo({ top: 0 });
+    setIsMetacriticOpened(false);
     dispatch(gamesActions.setGames([]));
     dispatch(filtersActions.setMetacriticMin(data.min));
     dispatch(filtersActions.setMetacriticMax(data.max));
