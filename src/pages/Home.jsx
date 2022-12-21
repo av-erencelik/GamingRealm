@@ -5,14 +5,15 @@ import Display from "../components/home/Display";
 import { gamesActions } from "../state/games";
 
 const Home = () => {
-  const [page, setPage] = useState(1);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
+  const page = useSelector((state) => state.games.page);
   const genre = useSelector((state) => state.filters.genre);
   const platform = useSelector((state) => state.filters.platform);
   const metacritic = useSelector((state) => state.filters.metacritic);
   const carouselGames = useSelector((state) => state.games.carouselGames);
+  const games = useSelector((state) => state.games.games);
   useEffect(() => {
     const getCarouselGames = async () => {
       const response = await fetch(`https://rawg.io/api/games?&page=1&token&key=${import.meta.env.VITE_RAWG_API_KEY}`);
@@ -50,21 +51,26 @@ const Home = () => {
         );
         const data = await response.json();
         setIsLoading(false);
-        dispatch(
-          gamesActions.updateGames(
-            data.results.map((game) => {
-              return {
-                id: game.id,
-                background_image: game.background_image,
-                name: game.name,
-                genres: game.genres,
-                metacritic: game.metacritic,
-              };
-            })
-          )
-        );
+        if (games.length > 0 && games[games.length - 1].id === data.results[data.results.length - 1].id) {
+          return;
+        } else {
+          dispatch(
+            gamesActions.updateGames(
+              data.results.map((game) => {
+                return {
+                  id: game.id,
+                  background_image: game.background_image,
+                  name: game.name,
+                  genres: game.genres,
+                  metacritic: game.metacritic,
+                };
+              })
+            )
+          );
+        }
       } catch (err) {
         setIsLoading(false);
+        console.log(err);
         setError("Something went wrong! Please, select another filter or category and try again.");
       }
     };
@@ -72,9 +78,9 @@ const Home = () => {
   }, [page, genre, platform, metacritic]);
   useEffect(() => {
     const onScroll = function () {
-      if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 10) {
+      if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 5) {
         setIsLoading(true);
-        setPage((prev) => prev + 1);
+        dispatch(gamesActions.incrementPage());
       }
     };
     window.addEventListener("scroll", onScroll);
@@ -85,7 +91,7 @@ const Home = () => {
     <>
       <main className="min-h-[100vh] bg-gray-200 p-0 sm:p-10">
         <Carousel games={carouselGames}></Carousel>
-        <Display isLoading={isLoading} error={error} setPage={setPage}></Display>
+        <Display isLoading={isLoading} error={error}></Display>
       </main>
     </>
   );

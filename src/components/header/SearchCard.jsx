@@ -1,9 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const SearchCard = ({ name, image, id }) => {
+  const navigate = useNavigate();
   const handleOnClick = (e) => {
     e.stopPropagation();
-    window.open(`/game/${e.target.id}`, "_blank");
+    navigate(`/game/${e.target.id}`);
   };
   return (
     <div

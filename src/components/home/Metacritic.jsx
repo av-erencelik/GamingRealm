@@ -41,7 +41,7 @@ const Metacritic = (props) => {
     dispatch(gamesActions.setGames([]));
     dispatch(filtersActions.setMetacriticMin(data.min));
     dispatch(filtersActions.setMetacriticMax(data.max));
-    props.setPage(1);
+    dispatch(gamesActions.setPage(1));
   };
   return (
     <div className="flex w-[100%] cursor-pointer flex-col items-center justify-center rounded-md transition ">

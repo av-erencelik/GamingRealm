@@ -8,7 +8,6 @@ import { gamesActions } from "../../state/games";
 const Platform = (props) => {
   const [isPlatformsOpened, setIsPlatformsOpened] = useState(false);
   const activeButton = useSelector((state) => state.filters.platformSelectedButton);
-  console.log(activeButton);
   const dispatch = useDispatch();
   const handleClick = () => {
     setIsPlatformsOpened((prev) => !prev);
@@ -18,14 +17,14 @@ const Platform = (props) => {
     const selectedPlatform = `&platforms=${e.target.id}`;
     if (e.target.innerHTML == "All") {
       dispatch(filtersActions.setPlatformSelectedButton(""));
-      dispatch(filtersActions.setPlatform(""));
       dispatch(gamesActions.setGames([]));
-      props.setPage(1);
+      dispatch(filtersActions.setPlatform(""));
+      dispatch(gamesActions.setPage(1));
     } else {
       dispatch(filtersActions.setPlatformSelectedButton(`${e.target.innerHTML}`));
-      dispatch(filtersActions.setPlatform(selectedPlatform));
       dispatch(gamesActions.setGames([]));
-      props.setPage(1);
+      dispatch(filtersActions.setPlatform(selectedPlatform));
+      dispatch(gamesActions.setPage(1));
     }
   }
   return (

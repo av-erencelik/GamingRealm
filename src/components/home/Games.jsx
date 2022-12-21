@@ -2,11 +2,13 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { useNavigate } from "react-router-dom";
 
 const Games = () => {
   const games = useSelector((state) => state.games.games);
+  const navigate = useNavigate();
   const handleClick = (e) => {
-    window.open(`/game/${e.target.id}`, "_blank");
+    navigate(`/game/${e.target.id}`);
   };
   return (
     <div className=" mt-[2.5rem] w-[100%] flex-wrap gap-3 sm:m-auto sm:mt-28 sm:flex sm:w-[80%] sm:flex-row">

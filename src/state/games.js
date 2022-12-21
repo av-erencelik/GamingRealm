@@ -4,6 +4,7 @@ const initialGamesState = {
   games: [],
   genres: [],
   carouselGames: [],
+  page: 1,
 };
 
 const gamesSlice = createSlice({
@@ -21,6 +22,12 @@ const gamesSlice = createSlice({
     },
     updateGames(state, action) {
       state.games = state.games.concat(action.payload);
+    },
+    setPage(state, action) {
+      state.page = action.payload;
+    },
+    incrementPage(state, action) {
+      state.page = state.page + 1;
     },
   },
 });

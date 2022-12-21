@@ -18,13 +18,13 @@ const Categories = (props) => {
     const selectedGenre = `&genres=${e.target.value}`;
 
     if (e.target.innerHTML == "All") {
+      dispatch(gamesActions.setGames([]));
+      dispatch(gamesActions.setPage(1));
       dispatch(filtersActions.setGenreEmpty());
-      dispatch(gamesActions.setGames([]));
-      props.setPage(1);
     } else {
-      dispatch(filtersActions.setGenre(selectedGenre));
       dispatch(gamesActions.setGames([]));
-      props.setPage(1);
+      dispatch(gamesActions.setPage(1));
+      dispatch(filtersActions.setGenre(selectedGenre));
     }
   };
   return (
