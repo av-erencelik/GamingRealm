@@ -1,4 +1,4 @@
-# gaming-site
+# GamingRealm
 
 gaming-site is a responsive website that fetches data from rawg.io api and allow users to fav games and make comments.
 
